@@ -46,8 +46,8 @@ win5 := 0
 
 ResetWindows() {
 
-	width := Round(A_ScreenWidth / 3)
-	height := Round(A_ScreenHeight / 3) + 40
+	width := Round(1920 / 3)
+	height := Round(1080 / 3) + 40
 
 	;MsgBox %A_ScreenWidth%x%A_ScreenHeight%
 
@@ -94,152 +94,10 @@ SetActive(WindowTitle) {
 
 }
 
-~Esc::
+^Esc::
 	BreakLoop = 1
 return
 
-^!x:: 
-	BreakLoop := 0
-	Loop, 
-	{
-		if (BreakLoop = 1)
-		  break 
-		
-		  pressX(win1)
-		  pressX(win2)
-		  pressX(win3)
-		  pressX(win4)
-		  pressX(win5)
-
-	}
-
-
-return
-
-
-pressX( win ) {
-	WinActivate, ahk_id %win%
-	Sleep 100
-	
-	IfWinActive, ahk_id %win%
-	{
-	 	Send, {x}
-	 	Sleep, 100   
-	}
-
-}
-
-
-checkAndClickTreasureMap(win) {
-	WinActivate, ahk_id %win%
-	
-	Sleep 100
-	
-	IfWinActive, ahk_id %win%
-	{
-		;Click, 616, 371
-
-		;PixelGetColor, color , 616, 371
-		;PixelGetColor, color2 , 616, 371
-
-		;MsgBox, %color% %color2%
-
-		Sleep 100
-		
-
-
-		PixelSearch, Px, Py, 626, 371, 626, 371 , 0x28A2F7 , 3 , Fast
-			if ErrorLevel
-			    Sleep, 100
-			else
-			    Sleep, 100
-			    Click, 616, 371
-		    
-	}
-}
-
-
-^!d::
-
-	BreakLoop := 0
-	Loop, 
-	{
-		if (BreakLoop = 1)
-		  break 
-		
-	  	WinActivate, ahk_id %win1%
-		Sleep 100
-		IfWinActive, ahk_id %win1%
-		{
-			PixelSearch, Px, Py, 626, 371, 626, 371 , 0x28A2F7 , 3 , Fast
-				if ErrorLevel
-				    OutputDebug 'waw'
-				else
-				    Click, 616, 371
-		}
-
-		WinActivate, ahk_id %win2%
-		Sleep, 100
-		IfWinActive, ahk_id %win2%
-		{
-			PixelSearch, Px, Py, 626, 371, 626, 371 , 0x28A2F7 , 3 , Fast
-				if ErrorLevel
-				    OutputDebug 'waw'
-				else
-				    Click, 616, 371
-		}
-
-		WinActivate, ahk_id %win3%
-		Sleep, 100
-		IfWinActive, ahk_id %win3%
-		{
-			PixelSearch, Px, Py, 626, 371, 626, 371 , 0x28A2F7 , 3 , Fast
-				if ErrorLevel
-				    OutputDebug 'waw'
-				else
-				    Click, 616, 371
-		}
-
-		WinActivate, ahk_id %win4%
-		Sleep, 100
-		IfWinActive, ahk_id %win4%
-		{
-			PixelSearch, Px, Py, 626, 371, 626, 371 , 0x28A2F7 , 3 , Fast
-				if ErrorLevel
-				    OutputDebug 'waw'
-				else
-				    Click, 616, 371
-		}
-
-		WinActivate, ahk_id %win5%
-		Sleep, 100
-		IfWinActive, ahk_id %win5%
-		{
-			PixelSearch, Px, Py, 626, 371, 626, 371 , 0x28A2F7 , 3 , Fast
-				if ErrorLevel
-				    OutputDebug 'waw'
-				else
-				    Click, 616, 371
-		}
-
-	}
-
-return
-
-
-^!LButton:: 
-
-	MouseGetPos, x , y
-	PixelGetColor, color , x, y
-
-	Clipboard := color . x . y
-return
-
-^!RButton:: 
-
-	MouseGetPos, x , y
-	Clipboard := x, y
-return
 
 
 ^!t:: 
@@ -250,19 +108,15 @@ return
 		if (BreakLoop = 1)
 		  break 
 		
-
-		x := 527
-		y := 341
 		color := 0x0097F7
 
 ;PixelGetColor, color1 , x, y
 ;MsgBox, %color%
 
 	  	WinActivate, ahk_id %win1%
-		Sleep, 300
 		IfWinActive, ahk_id %win1%
 		{
-			PixelSearch, Px, Py, x , y, x , y , color  , 3 , Fast
+			PixelSearch, Px, Py, 371, 195, 527, 322 , color  , 3 , Fast
 				if ErrorLevel {
 					OutputDebug 'waw'
 				}
@@ -275,7 +129,7 @@ return
 		WinActivate, ahk_id %win2%
 		IfWinActive, ahk_id %win2%
 		{
-			PixelSearch, Px, Py, x , y, x , y , color  , 3 , Fast
+			PixelSearch, Px, Py, 371, 195, 527, 322 , color  , 3 , Fast
 				if ErrorLevel {
 					OutputDebug 'waw'
 				}
@@ -288,7 +142,7 @@ return
 		WinActivate, ahk_id %win3%
 		IfWinActive, ahk_id %win3%
 		{
-			PixelSearch, Px, Py, x , y, x , y , color  , 3 , Fast
+			PixelSearch, Px, Py, 371, 195, 527, 322 , color  , 3 , Fast
 				if ErrorLevel {
 					OutputDebug 'waw'
 				}
@@ -301,7 +155,7 @@ return
 		WinActivate, ahk_id %win4%
 		IfWinActive, ahk_id %win4%
 		{
-			PixelSearch, Px, Py, x , y, x , y , color  , 3 , Fast
+			PixelSearch, Px, Py, 371, 195, 527, 322 , color  , 3 , Fast
 				if ErrorLevel {
 					OutputDebug 'waw'
 				}
@@ -314,7 +168,7 @@ return
 		WinActivate, ahk_id %win5%
 		IfWinActive, ahk_id %win5%
 		{
-			PixelSearch, Px, Py, x , y, x , y , color  , 3 , Fast
+			PixelSearch, Px, Py, 371, 195, 527, 322 , color  , 3 , Fast
 				if ErrorLevel {
 					OutputDebug 'waw'
 				}
@@ -325,5 +179,38 @@ return
 		}
 
 	}
+
+return
+
+^!x:: 
+
+
+	WinActivate, ahk_id %win1%
+	IfWinActive, ahk_id %win1%
+	{
+		PixelSearch, Px, Py, 175, 116, 479, 315 , 0x63B47E  , 3 , Fast
+			if ErrorLevel {
+				OutputDebug 'waw'
+			}
+			else {
+				MouseMove, Px, Py
+			    ;Click, Px , Py
+			}
+	}
+
+
+return
+
+^!c:: 
+
+
+	WinActivate, ahk_id %win1%
+	IfWinActive, ahk_id %win1%
+	{
+		MouseGetPos, x, y
+		PixelGetColor, color , x, y
+		Clipboard := color
+	}
+
 
 return
