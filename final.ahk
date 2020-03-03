@@ -1,9 +1,6 @@
 
 #SingleInstance Force ; The script will Reload if launched while already running
 
-
-;SetFifthWindow()
-
 F1::
 Send ^9
 Return
@@ -46,8 +43,8 @@ win5 := 0
 
 ResetWindows() {
 
-	width := Round(1920 / 3)
-	height := Round(1080 / 3) + 40
+	width := Round(A_ScreenWidth / 3)
+	height := Round(A_ScreenHeight / 3) + 40
 
 	;MsgBox %A_ScreenWidth%x%A_ScreenHeight%
 
@@ -100,6 +97,27 @@ return
 
 
 
+pressOrange(win) {
+
+	color := 0x0097F7
+
+	WinActivate, ahk_id %win%
+	IfWinActive, ahk_id %win%
+	{
+		WinGetActiveStats, Title, WindowWidth, WindowHeight , x , y
+		;MsgBox, %Title% %WindowWidth%  %WindowHeight% %WindowX% %WindowY%
+
+		PixelSearch, Px, Py, (WindowWidth * 0.578125‬), (WindowHeight * 0.4875 ),  (WindowWidth * 0.8784), (WindowHeight * 0.93 ) , color  , 3 , Fast
+			if ErrorLevel {
+				OutputDebug 'waw'
+			}
+			else {
+				MouseMove, Px, Py
+			    Click, Px , Py
+			}
+	}
+}
+
 ^!t:: 
 
 	BreakLoop := 0
@@ -108,75 +126,11 @@ return
 		if (BreakLoop = 1)
 		  break 
 		
-		color := 0x0097F7
-
-;PixelGetColor, color1 , x, y
-;MsgBox, %color%
-
-	  	WinActivate, ahk_id %win1%
-		IfWinActive, ahk_id %win1%
-		{
-			PixelSearch, Px, Py, 371, 195, 527, 322 , color  , 3 , Fast
-				if ErrorLevel {
-					OutputDebug 'waw'
-				}
-				else {
-					MouseMove, Px, Py
-				    Click, Px , Py
-				}
-		}
-
-		WinActivate, ahk_id %win2%
-		IfWinActive, ahk_id %win2%
-		{
-			PixelSearch, Px, Py, 371, 195, 527, 322 , color  , 3 , Fast
-				if ErrorLevel {
-					OutputDebug 'waw'
-				}
-				else {
-					MouseMove, Px, Py
-				    Click, Px , Py
-				}
-		}
-
-		WinActivate, ahk_id %win3%
-		IfWinActive, ahk_id %win3%
-		{
-			PixelSearch, Px, Py, 371, 195, 527, 322 , color  , 3 , Fast
-				if ErrorLevel {
-					OutputDebug 'waw'
-				}
-				else {
-					MouseMove, Px, Py
-				    Click, Px , Py
-				}
-		}
-
-		WinActivate, ahk_id %win4%
-		IfWinActive, ahk_id %win4%
-		{
-			PixelSearch, Px, Py, 371, 195, 527, 322 , color  , 3 , Fast
-				if ErrorLevel {
-					OutputDebug 'waw'
-				}
-				else {
-					MouseMove, Px, Py
-				    Click, Px , Py
-				}
-		}
-
-		WinActivate, ahk_id %win5%
-		IfWinActive, ahk_id %win5%
-		{
-			PixelSearch, Px, Py, 371, 195, 527, 322 , color  , 3 , Fast
-				if ErrorLevel {
-					OutputDebug 'waw'
-				}
-				else {
-					MouseMove, Px, Py
-				    Click, Px , Py
-				}
-		}
+	  	pressOrange(win1)
+	  	pressOrange(win2)
+	  	pressOrange(win3)
+	  	pressOrange(win4)
+	  	pressOrange(win5)
 
 	}
 
@@ -213,4 +167,18 @@ return
 	}
 
 
+return
+
+^+LButton:: 
+	;MsgBox, wow
+
+	CoordMode, Mouse, Window
+
+	WinGetActiveStats, Title, WindowWidth, WindowHeight , x , y
+	MouseGetPos, mouse_x, mouse_y
+
+	output_x := (mouse_x / WindowWidth)
+	output_y := (mouse_y / WindowHeight)
+
+	MsgBox, X = %output_x%  Y = %output_y%
 return
