@@ -169,6 +169,18 @@ return
 
 return
 
+goclick(x , y , win) {
+
+	WinActivate, ahk_id %win%
+	IfWinActive, ahk_id %win%
+	{
+		WinGetActiveStats, Title, WindowWidth, WindowHeight , nox , noy
+		MouseMove, (x * WindowWidth) , (y * WindowHeight)
+		Click, (x * WindowWidth) , (y * WindowHeight)
+	}
+
+}
+
 ^+LButton:: 
 	;MsgBox, wow
 
@@ -180,5 +192,96 @@ return
 	output_x := (mouse_x / WindowWidth)
 	output_y := (mouse_y / WindowHeight)
 
-	MsgBox, X = %output_x%  Y = %output_y%
+	;MsgBox, X = output_x  Y = %output_y%
+
+	Clipboard := output_x "," output_y
+
 return
+
+
+^f:: 
+	
+	goclick( 0.631887, 0.534615 , win1 )
+
+return
+
+^!LButton::
+
+	CoordMode, Mouse, Window
+
+	WinGetActiveStats, Title, WindowWidth, WindowHeight , x , y
+	MouseGetPos, mouse_x, mouse_y
+
+	x1 := mouse_x
+	y1 := mouse_y
+
+	x2 := (x1 + 5)
+	y2 := y1
+	
+	x3 := (x1 - 5)
+	y3 := y1
+
+	PixelGetColor, color1 , (x1) ,  (y1)
+	PixelGetColor, color2 , (x2) ,  (y1)
+	PixelGetColor, color3 , (x3) ,  (y1)
+
+	Clipboard := color1 "," color2 "," color3
+
+return
+
+^~l:: 
+	threePointSearchAndClick( 0x0E3F3A, 0x000000, 0x2FD7C5 , 0.752638,0.484615 , 1 , 1 , win2)
+	sleep, 9000
+
+threePointSearchAndClick( 0x0E3F3A, 0x000000, 0x2FD7C5 , 0.752638,0.484615 , 1 , 1 , win3)
+	sleep, 9000
+
+	threePointSearchAndClick( 0x0E3F3A, 0x000000, 0x2FD7C5 , 0.752638,0.484615 , 1 , 1 , win4)
+	sleep, 9000
+
+
+return
+
+threePointSearchAndClick(c1 , c2 , c3 , x1 , y1 , x2 , y2 , win) {
+
+	WinActivate, ahk_id %win%
+	IfWinActive, ahk_id %win%
+	{
+		WinGetActiveStats, Title, WindowWidth, WindowHeight , nox , noy
+		MsgBox, %Title% %WindowWidth% %WindowHeight%
+		PixelSearch, fx1, fy1,  (WindowWidth * x1), (WindowHeight * y1 ),  (WindowWidth * x2), (WindowHeight * y2 ) , c1  , 3 , Fast
+			if ErrorLevel {
+				MsgBox, First color not found at %fx1% %fy1%
+			}
+			else {
+
+				MsgBox, First color found at %fx1% %fy1%
+
+				PixelSearch, fx2, fy2,  (fx1 + 5) , fy1 ,  (fx1 + 5) , fy1 , c2  , 3 , Fast
+				if ErrorLevel {
+					MsgBox, Second color not found at %fx2% %fy2%
+				}
+				else {
+
+					MsgBox, Second color found at %fx2% %fy2%
+
+					PixelSearch, fx3, fy3,  (fx1 - 5) , fy1 ,  (fx1 - 5) , fy1 , c3  , 3 , Fast
+					
+					if ErrorLevel {
+						MsgBox, Third color not found at %fx3% %fy3%
+					}
+					else {
+						
+						MsgBox, Third color found at %fx3% %fy3%
+						MsgBox, 3 Point Pixel Search Successful
+
+						MouseMove, fx1 , fy1
+						Click,  fx1 , fy1
+					}
+				}
+			}
+	}
+
+	
+
+} 
