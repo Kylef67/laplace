@@ -285,3 +285,14 @@ threePointSearchAndClick(c1 , c2 , c3 , x1 , y1 , x2 , y2 , win) {
 	
 
 } 
+
+~LButton::
+Loop
+{
+	Sleep, 50
+    GetKeyState, RButtonState, MButton , P
+    if RButtonState = U  ; User has physically released the button, so end the loop.
+        break 
+    MouseClick, Left
+}
+return
