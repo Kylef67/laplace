@@ -198,13 +198,6 @@ goclick(x , y , win) {
 
 return
 
-
-^f:: 
-	
-	goclick( 0.631887, 0.534615 , win1 )
-
-return
-
 ^!LButton::
 
 	CoordMode, Mouse, Window
@@ -289,8 +282,8 @@ threePointSearchAndClick(c1 , c2 , c3 , x1 , y1 , x2 , y2 , win) {
 ~LButton::
 Loop
 {
-	Sleep, 50
-    GetKeyState, RButtonState, MButton , P
+	Sleep, 1
+    GetKeyState, RButtonState, RButton , P
     if RButtonState = U  ; User has physically released the button, so end the loop.
         break 
     MouseClick, Left
